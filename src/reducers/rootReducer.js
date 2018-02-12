@@ -1,8 +1,8 @@
 import {combineReducers} from 'redux';
-import stuff from './stuffReducer';
+import sections from './sectionsReducer';
 
 const rootReducer = combineReducers({
-  stuff
+  sections
 });
 
 export default rootReducer;
