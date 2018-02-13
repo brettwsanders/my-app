@@ -1,11 +1,13 @@
 .container {
     display: flex;
     flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    align-items: stretch;
 }
 
 .section-container {
     border: 1px solid black;
-    margin-left: 25px;
 }
 
 .header {
@@ -25,4 +27,9 @@
 }
 .orange {
     background-color: #E8741E;
+}
+
+.footer {
+    color: white;
+    background-color: grey;
 }

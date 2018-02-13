@@ -1,5 +1,6 @@
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import cardActions from '../actions/cardActions';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Section from './Section';
@@ -8,10 +9,9 @@ import './App.css';
 const colors = ['purple', 'teel', 'darkblue', 'orange'];
 
 class App extends Component {
-  renderSections(sections) {
+  renderSections({ sections, dispatch }) {
       return sections.map((section, index) => {
            const headerClass = `header ${colors[index]}`
-           console.log(headerClass);
 
            const cards = section.cards.map(card => {
                return (
@@ -24,15 +24,23 @@ class App extends Component {
             <div className="section-container">
                 <div className={headerClass}>{section.name}</div>
                 {cards}
+                <div className="footer" onClick={() => this.promptUser(index)}>+ Add a card</div>
             </div>
           )
       });
   }
 
+  promptUser(sectionIndex) {
+      console.log('index is', sectionIndex);
+      const newCardText = window.prompt("What is the new card to add?");
+      this.props.cardActions.addCard(newCardText);
+  }
+
   render() {
+    console.log(this.props);
     return (
       <div className="container">
-        {this.renderSections(this.props.sections)}
+        {this.renderSections(this.props)}
       </div>
     );
   }
@@ -48,14 +56,14 @@ function mapStateToProps(state) {
   };
 }
 
-// function mapDispatchToProps(dispatch) {
-//   return {
-//     stuffActions: bindActionCreators(stuffActions, dispatch)
-//   };
-// }
+function mapDispatchToProps(dispatch) {
+  return {
+    cardActions: bindActionCreators(cardActions, dispatch)
+  };
+}
 
 export default connect(
   mapStateToProps,
-//  mapDispatchToProps
+  mapDispatchToProps
 )(App);
 
